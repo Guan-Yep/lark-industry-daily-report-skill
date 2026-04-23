@@ -1,0 +1,299 @@
+{
+  "version": 2,
+  "nodes": [
+    {
+      "type": "frame",
+      "layout": "vertical",
+      "gap": 24,
+      "padding": 40,
+      "width": 1200,
+      "height": "fit-content",
+      "fillColor": "#F8FAFC",
+      "children": [
+        {
+          "type": "text",
+          "text": "AI 行业日报 - 2026-04-22",
+          "fontSize": 28,
+          "fontWeight": "bold",
+          "textAlign": "center",
+          "width": "fill-container",
+          "height": "fit-content",
+          "textColor": "#0F172A"
+        },
+        {
+          "type": "text",
+          "text": "导读：近期 AI 领域新品发布频繁，特别是工具侧有重大突破。本次聚焦于营销与自动化，以及 AI 工具辅助创作设计与日常记录的迭代。",
+          "fontSize": 16,
+          "textAlign": "center",
+          "width": "fill-container",
+          "height": "fit-content",
+          "textColor": "#475569"
+        },
+        {
+          "type": "frame",
+          "layout": "vertical",
+          "gap": 16,
+          "padding": 0,
+          "width": "fill-container",
+          "height": "fit-content",
+          "children": [
+            {
+              "type": "frame",
+              "layout": "horizontal",
+              "gap": 16,
+              "padding": 0,
+              "width": "fill-container",
+              "height": "fit-content",
+              "alignItems": "stretch",
+              "children": [
+                {
+                  "type": "frame",
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": 24,
+                  "width": "fill-container",
+                  "height": "fit-content",
+                  "fillColor": "#FFFFFF",
+                  "borderColor": "#E2E8F0",
+                  "borderWidth": 1,
+                  "borderRadius": 12,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "layout": "horizontal",
+                      "gap": 8,
+                      "padding": 0,
+                      "width": "fill-container",
+                      "height": "fit-content",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "name": "search",
+                          "width": 24,
+                          "height": 24,
+                          "color": "#3B82F6"
+                        },
+                        {
+                          "type": "text",
+                          "text": "RankAI",
+                          "fontSize": 20,
+                          "fontWeight": "bold",
+                          "width": "fill-container",
+                          "height": "fit-content",
+                          "textColor": "#1E293B"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "text": "智能搜索引擎获客",
+                      "fontSize": 14,
+                      "fontWeight": "bold",
+                      "width": "fill-container",
+                      "height": "fit-content",
+                      "textColor": "#3B82F6"
+                    },
+                    {
+                      "type": "text",
+                      "text": "RankAI 可以自主从 Google 和各种人工智能搜索引擎中为您获取潜在买家，打破传统 SEO 边界。",
+                      "fontSize": 14,
+                      "width": "fill-container",
+                      "height": "fit-content",
+                      "textColor": "#64748B"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": 24,
+                  "width": "fill-container",
+                  "height": "fit-content",
+                  "fillColor": "#FFFFFF",
+                  "borderColor": "#E2E8F0",
+                  "borderWidth": 1,
+                  "borderRadius": 12,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "layout": "horizontal",
+                      "gap": 8,
+                      "padding": 0,
+                      "width": "fill-container",
+                      "height": "fit-content",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "name": "mic",
+                          "width": 24,
+                          "height": 24,
+                          "color": "#10B981"
+                        },
+                        {
+                          "type": "text",
+                          "text": "Fathom 3.0",
+                          "fontSize": 20,
+                          "fontWeight": "bold",
+                          "width": "fill-container",
+                          "height": "fit-content",
+                          "textColor": "#1E293B"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "text": "AI 会议记录革新",
+                      "fontSize": 14,
+                      "fontWeight": "bold",
+                      "width": "fill-container",
+                      "height": "fit-content",
+                      "textColor": "#10B981"
+                    },
+                    {
+                      "type": "text",
+                      "text": "不再依赖呆板的“机器人参与”，全面接入 ChatGPT、Claude 等多种大模型，实现无感、智能的会议纪要和后续跟踪。",
+                      "fontSize": 14,
+                      "width": "fill-container",
+                      "height": "fit-content",
+                      "textColor": "#64748B"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "layout": "horizontal",
+              "gap": 16,
+              "padding": 0,
+              "width": "fill-container",
+              "height": "fit-content",
+              "alignItems": "stretch",
+              "children": [
+                {
+                  "type": "frame",
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": 24,
+                  "width": "fill-container",
+                  "height": "fit-content",
+                  "fillColor": "#FFFFFF",
+                  "borderColor": "#E2E8F0",
+                  "borderWidth": 1,
+                  "borderRadius": 12,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "layout": "horizontal",
+                      "gap": 8,
+                      "padding": 0,
+                      "width": "fill-container",
+                      "height": "fit-content",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "name": "pen-tool",
+                          "width": 24,
+                          "height": 24,
+                          "color": "#8B5CF6"
+                        },
+                        {
+                          "type": "text",
+                          "text": "Figma for Agents",
+                          "fontSize": 20,
+                          "fontWeight": "bold",
+                          "width": "fill-container",
+                          "height": "fit-content",
+                          "textColor": "#1E293B"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "text": "AI 设计代理",
+                      "fontSize": 14,
+                      "fontWeight": "bold",
+                      "width": "fill-container",
+                      "height": "fit-content",
+                      "textColor": "#8B5CF6"
+                    },
+                    {
+                      "type": "text",
+                      "text": "通过与设计系统连接的人工智能代理，协助自动生成设计。解决了 AI 瞎画、不符合品牌设计系统规范的痛点。",
+                      "fontSize": 14,
+                      "width": "fill-container",
+                      "height": "fit-content",
+                      "textColor": "#64748B"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": 24,
+                  "width": "fill-container",
+                  "height": "fit-content",
+                  "fillColor": "#FFFFFF",
+                  "borderColor": "#E2E8F0",
+                  "borderWidth": 1,
+                  "borderRadius": 12,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "layout": "horizontal",
+                      "gap": 8,
+                      "padding": 0,
+                      "width": "fill-container",
+                      "height": "fit-content",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "name": "cpu",
+                          "width": 24,
+                          "height": 24,
+                          "color": "#F59E0B"
+                        },
+                        {
+                          "type": "text",
+                          "text": "Claude Advisor Tool",
+                          "fontSize": 20,
+                          "fontWeight": "bold",
+                          "width": "fill-container",
+                          "height": "fit-content",
+                          "textColor": "#1E293B"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "text": "AI 协作工作流",
+                      "fontSize": 14,
+                      "fontWeight": "bold",
+                      "width": "fill-container",
+                      "height": "fit-content",
+                      "textColor": "#F59E0B"
+                    },
+                    {
+                      "type": "text",
+                      "text": "一种大模型套壳的新工作流，让最强模型 Opus 作为策略顾问，指导轻量级模型 Sonnet 或 Haiku 执行具体任务，兼顾质量与成本。",
+                      "fontSize": 14,
+                      "width": "fill-container",
+                      "height": "fit-content",
+                      "textColor": "#64748B"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
