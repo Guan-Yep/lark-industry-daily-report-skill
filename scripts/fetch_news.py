@@ -47,9 +47,30 @@ def load_config_from_feishu(sheet_token):
     for s in sheets:
         title = s.get("title")
         sheet_id = s.get("sheet_id")
+        sheet_kind = None
+        if title in ("信源", "Sheet1"):
+            sheet_kind = "source"
+        elif title == "白名单":
+            sheet_kind = "white"
+        elif title == "黑名单":
+            sheet_kind = "black"
         
         # 读取该 sheet 的数据
         try:
+            # 兼容 Windows 编码导致的标题乱码：用 A1 表头再识别一次
+            if sheet_kind is None:
+                head_cmd = [lark_cmd, "sheets", "+read", "--url", sheet_token, "--sheet-id", sheet_id, "--range", "A1:A1", "--as", "user"]
+                head_res = subprocess.run(head_cmd, capture_output=True, text=True, errors='ignore')
+                head_data = json.loads(head_res.stdout)
+                head_values = head_data.get("data", {}).get("valueRange", {}).get("values", [])
+                header = head_values[0][0].strip() if head_values and head_values[0] else ""
+                if "信源" in header:
+                    sheet_kind = "source"
+                elif "偏好" in header or "白名单" in header:
+                    sheet_kind = "white"
+                elif "屏蔽" in header or "黑名单" in header:
+                    sheet_kind = "black"
+
             cmd = [lark_cmd, "sheets", "+read", "--url", sheet_token, "--sheet-id", sheet_id, "--range", "A2:A100", "--as", "user"]
             res = subprocess.run(cmd, capture_output=True, text=True, errors='ignore')
             read_data = json.loads(res.stdout)
@@ -61,11 +82,11 @@ def load_config_from_feishu(sheet_token):
                 if row and row[0]:
                     items.append(str(row[0]).strip())
                     
-            if title == "信源" or title == "Sheet1":
+            if sheet_kind == "source":
                 sources.extend(items)
-            elif title == "白名单":
+            elif sheet_kind == "white":
                 whitelist.extend(items)
-            elif title == "黑名单":
+            elif sheet_kind == "black":
                 blacklist.extend(items)
         except Exception as e:
             print(f"Failed to read sheet {title}: {e}", file=sys.stderr)

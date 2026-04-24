@@ -46,15 +46,21 @@ def setup_workspace(space_id, parent_node_token):
 
     # 4. Create new config sheet in the specified Wiki node
     print("Creating new config sheet in Wiki...")
+    # 使用 sheet 对象类型而不是 bitable，因为 Wiki 空间不支持内嵌 bitable 导致创建失败返回 {}
     res = run_cmd([lark_cmd, "wiki", "+node-create", "--space-id", space_id, "--parent-node-token", parent_node_token, "--title", "Agent偏好与信源配置表", "--obj-type", "sheet", "--as", "user"])
     
-    if not res.get("ok"):
-        print(f"Failed to create wiki node: {res}")
+    if not res or not res.get("ok"):
+        print(f"Failed to create wiki node for Config Sheet: {res}")
+        print("提示: 可能是父节点 Token 无效或当前用户无编辑权限。请检查参数是否正确。")
         sys.exit(1)
         
     data = res.get("data", {})
     new_obj_token = data.get("obj_token")
     new_node_token = data.get("node_token")
+    
+    if not new_obj_token:
+        print(f"Failed to extract obj_token from response: {res}")
+        sys.exit(1)
     
     # 4.1 Create agent rules document in the same Wiki node
     print("Creating new Agent rules document in Wiki...")
@@ -147,22 +153,16 @@ def setup_workspace(space_id, parent_node_token):
     # Write using --data (which accepts raw JSON string and doesn't get messed up by powershell escaping in subprocess as much if we use strings properly, or better yet, just use the lark-cli without relying on implicit shell escaping)
     # The safest way is to write the JSON to a temp file and use @file.json, or just format the string carefully.
     
-    with open("temp_values.json", "w", encoding="utf-8") as f:
-        json.dump([["信源链接"], ["https://rss.aishort.top/?type=v2ex&node=create"], ["https://rss.aishort.top/?type=36kr&name=newsflashes"]], f)
-    subprocess.run([lark_cmd, "sheets", "+write", "--url", new_obj_token, "--sheet-id", first_sheet_id, "--range", "A1:A3", "--values", "@temp_values.json", "--as", "user"])
-    os.remove("temp_values.json")
+    source_values = [["信源链接"], ["https://rss.aishort.top/?type=v2ex&node=create"], ["https://rss.aishort.top/?type=36kr&name=newsflashes"]]
+    subprocess.run([lark_cmd, "sheets", "+write", "--url", new_obj_token, "--sheet-id", first_sheet_id, "--range", "A1:A3", "--values", json.dumps(source_values, ensure_ascii=False), "--as", "user"])
     
     if w_id:
-        with open("temp_values.json", "w", encoding="utf-8") as f:
-            json.dump([["偏好关键词"], ["大模型"], ["Agent"]], f, ensure_ascii=False)
-        subprocess.run([lark_cmd, "sheets", "+write", "--url", new_obj_token, "--sheet-id", w_id, "--range", "A1:A3", "--values", "@temp_values.json", "--as", "user"])
-        os.remove("temp_values.json")
+        white_values = [["偏好关键词"], ["大模型"], ["Agent"]]
+        subprocess.run([lark_cmd, "sheets", "+write", "--url", new_obj_token, "--sheet-id", w_id, "--range", "A1:A3", "--values", json.dumps(white_values, ensure_ascii=False), "--as", "user"])
         
     if b_id:
-        with open("temp_values.json", "w", encoding="utf-8") as f:
-            json.dump([["屏蔽关键词"], ["裁员"], ["财报"]], f, ensure_ascii=False)
-        subprocess.run([lark_cmd, "sheets", "+write", "--url", new_obj_token, "--sheet-id", b_id, "--range", "A1:A3", "--values", "@temp_values.json", "--as", "user"])
-        os.remove("temp_values.json")
+        black_values = [["屏蔽关键词"], ["裁员"], ["财报"]]
+        subprocess.run([lark_cmd, "sheets", "+write", "--url", new_obj_token, "--sheet-id", b_id, "--range", "A1:A3", "--values", json.dumps(black_values, ensure_ascii=False), "--as", "user"])
 
     # 6. Save new state
     state["space_id"] = space_id
@@ -175,10 +175,12 @@ def setup_workspace(space_id, parent_node_token):
     with open(STATE_FILE, "w", encoding="utf-8") as f:
         json.dump(state, f, ensure_ascii=False, indent=2)
 
+    # Replace hardcoded tenant domain with dynamic base url if possible, otherwise use generic format
+    base_url = os.getenv("LARK_BASE_URL", "https://feishu.cn")
     print(f"Setup complete.")
-    print(f"Config sheet: https://lc0efdg5if.feishu.cn/sheets/{new_obj_token}")
+    print(f"Config sheet created successfully. obj_token: {new_obj_token}")
     if new_rules_obj_token:
-        print(f"Rules doc: https://lc0efdg5if.feishu.cn/docx/{new_rules_obj_token}")
+        print(f"Rules doc created successfully. obj_token: {new_rules_obj_token}")
     return new_obj_token, new_rules_obj_token
 
 if __name__ == "__main__":

@@ -109,20 +109,29 @@ def generate_xiaohongshu_card(news_data, date_str=""):
 def main():
     import os
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    json_path = os.path.join(base_dir, "categorized_news.json")
     
+    # 优先使用经过 generate_report.py 宽容解析后生成的标准化数据
+    json_path = os.path.join(base_dir, "parsed_news.json")
+    if not os.path.exists(json_path):
+        # 兼容旧版本或过渡期
+        json_path = os.path.join(base_dir, "categorized_news.json")
+        
     try:
         with open(json_path, "r", encoding="utf-8") as f:
             data = json.load(f)
-            date_str = data.get("date", "")
-            news_data = []
-            for category in data.get("categories", []):
-                cat_name = category.get("name", "")
-                for item in category.get("items", []):
-                    item["category"] = cat_name
-                    news_data.append(item)
+            if isinstance(data, list):
+                news_data = data
+                date_str = ""
+            else:
+                date_str = data.get("date", "")
+                news_data = []
+                for category in data.get("categories", []):
+                    cat_name = category.get("name", "")
+                    for item in category.get("items", []):
+                        item["category"] = cat_name
+                        news_data.append(item)
     except Exception as e:
-        print(f"Error loading news data: {e}", file=sys.stderr)
+        print(f"Error loading {json_path}: {e}", file=sys.stderr)
         sys.exit(1)
         
     card_json = generate_xiaohongshu_card(news_data, date_str)
